@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pakistan Independence Information</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="flag">🇵🇰</div>
+        <h1>Pakistan Independence</h1>
+        <p class="subtitle">Historical Dates & Centennial Information</p>
+      </div>
+
+      <div class="section">
+        <h2><span class="icon">📅</span> Independence Date</h2>
+
+        <div class="date-box">
+          <div class="date-label">Gregorian Calendar</div>
+          <div class="date-value">
+            14th August, 1947, Friday, Laylat-ul-Qadr
+          </div>
+        </div>
+
+        <div class="date-box">
+          <div class="date-label">Islamic (Hijri) Calendar</div>
+          <div class="date-value">
+            27th Ramadan, 1366 AH, Friday, Laylat-ul-Qadr
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2><span class="icon">⏳</span> Current Age</h2>
+
+        <div class="date-box">
+          <div class="date-label">Years Since Independence</div>
+          <div class="date-value" id="years-old"></div>
+        </div>
+
+        <div class="date-box">
+          <div class="date-label">Days Since Independence</div>
+          <div class="date-value" id="days-old"></div>
+        </div>
+
+        <div class="date-box">
+          <div class="date-label">Next Independence Day</div>
+          <div class="date-value" id="next-independence"></div>
+        </div>
+      </div>
+
+      <div class="section celebration">
+        <h2><span class="icon">🎉</span> 100 Years Completion</h2>
+
+        <div class="date-box">
+          <div class="date-label">Gregorian Calendar</div>
+          <div class="date-value">14th August, 2047</div>
+        </div>
+
+        <div class="date-box">
+          <div class="date-label">Islamic (Hijri) Calendar</div>
+          <div class="date-value">27th Ramadan, 1466 AH</div>
+        </div>
+
+        <div class="countdown">
+          <div id="countdown-text"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>🌟 Pakistan Zindabad 🌟</p>
+        <p style="margin-top: 10px; font-size: 12px">
+          Last updated: <span id="last-updated"></span>
+        </p>
+      </div>
+
+      <button class="download-btn" onclick="generatePDF()">
+        📥 Download as PDF
+      </button>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
