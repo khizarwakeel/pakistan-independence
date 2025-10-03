@@ -88,7 +88,7 @@ function getCountdownText() {
     }
   }
   const days = calculateDays(temp, CENTENNIAL_DATE);
-  return `${years} years and ${days} days until Pakistan's Centennial!`;
+  return `${years} years and ${days} days AD until Pakistan's Centennial!`;
 }
 
 // Update all dynamic content
