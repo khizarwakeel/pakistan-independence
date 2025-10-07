@@ -65,30 +65,51 @@ function getNextIndependenceDay() {
   }
 
   const daysUntil = calculateDays(today, nextDay);
-  return `${formatDateWithOrdinal(nextDay) AD} (${daysUntil} days)`;
+  return `${formatDateWithOrdinal(nextDay)} AD (${daysUntil} days)`;
 }
 
 // Create a robust "years and days" countdown to CENTENNIAL_DATE:
 function getCountdownText() {
   const today = normalizeToMidnight(new Date());
-  // compute full years we can add to today without passing centennial
-  let temp = new Date(today);
-  let years = 0;
-  while (true) {
-    const next = new Date(
-      temp.getFullYear() + 1,
-      temp.getMonth(),
-      temp.getDate()
-    );
-    if (next <= CENTENNIAL_DATE) {
-      temp = next;
-      years += 1;
-    } else {
-      break;
+  if (today <= CENTENNIAL_DATE) {
+    // Until 14 Aug 2047 AD
+    let temp = new Date(today);
+    let years = 0;
+    while (true) {
+      const next = new Date(
+        temp.getFullYear() + 1,
+        temp.getMonth(),
+        temp.getDate()
+      );
+      if (next <= CENTENNIAL_DATE) {
+        temp = next;
+        years += 1;
+      } else {
+        break;
+      }
     }
+    const days = calculateDays(temp, CENTENNIAL_DATE);
+    return `${years} years and ${days} days until Pakistan's Centennial (2047 AD)!`;
+  } else {
+    // After 14 Aug 2047 AD
+    let temp = new Date(CENTENNIAL_DATE);
+    let years = 0;
+    while (true) {
+      const next = new Date(
+        temp.getFullYear() + 1,
+        temp.getMonth(),
+        temp.getDate()
+      );
+      if (next <= today) {
+        temp = next;
+        years += 1;
+      } else {
+        break;
+      }
+    }
+    const days = calculateDays(temp, today);
+    return `${years} years and ${days} days since Pakistan's Centennial (2047 AD).`;
   }
-  const days = calculateDays(temp, CENTENNIAL_DATE);
-  return `${years} years and ${days} days until Pakistan's Centennial (2047 AD)!`;
 }
 
 // Update all dynamic content
@@ -126,21 +147,41 @@ function generatePDF() {
   const years = calculateYears(INDEPENDENCE_DATE, today);
   const days = calculateDays(INDEPENDENCE_DATE, today);
 
-  // compute the same centennial years/days used on page
-  let temp = normalizeToMidnight(today);
-  let yearsUntilCentennial = 0;
-  while (true) {
-    const next = new Date(
-      temp.getFullYear() + 1,
-      temp.getMonth(),
-      temp.getDate()
-    );
-    if (next <= CENTENNIAL_DATE) {
-      temp = next;
-      yearsUntilCentennial++;
-    } else break;
+  // compute the same centennial years/days used on page (until/since)
+  let countdownLine = "";
+  if (normalizeToMidnight(today) <= CENTENNIAL_DATE) {
+    let temp = normalizeToMidnight(today);
+    let yearsUntil = 0;
+    while (true) {
+      const next = new Date(
+        temp.getFullYear() + 1,
+        temp.getMonth(),
+        temp.getDate()
+      );
+      if (next <= CENTENNIAL_DATE) {
+        temp = next;
+        yearsUntil++;
+      } else break;
+    }
+    const daysUntil = calculateDays(temp, CENTENNIAL_DATE);
+    countdownLine = `${yearsUntil} years and ${daysUntil} days until Pakistan's Centennial (2047 AD)!`;
+  } else {
+    let temp = new Date(CENTENNIAL_DATE);
+    let yearsSince = 0;
+    while (true) {
+      const next = new Date(
+        temp.getFullYear() + 1,
+        temp.getMonth(),
+        temp.getDate()
+      );
+      if (next <= normalizeToMidnight(today)) {
+        temp = next;
+        yearsSince++;
+      } else break;
+    }
+    const daysSince = calculateDays(temp, normalizeToMidnight(today));
+    countdownLine = `${yearsSince} years and ${daysSince} days since Pakistan's Centennial (2047 AD).`;
   }
-  const daysUntilCentennial = calculateDays(temp, CENTENNIAL_DATE);
 
   const darkGreen = [1, 65, 28];
   const lightGreen = [15, 103, 56];
@@ -214,7 +255,7 @@ function generatePDF() {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(12);
   doc.text(
-    `${yearsUntilCentennial} years and ${daysUntilCentennial} days until Pakistan's Centennial (2047 AD)!`,
+    countdownLine,
     105,
     yPos + 8,
     { align: "center" }
