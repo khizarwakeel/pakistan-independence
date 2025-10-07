@@ -65,7 +65,7 @@ function getNextIndependenceDay() {
   }
 
   const daysUntil = calculateDays(today, nextDay);
-  return `${formatDateWithOrdinal(nextDay)} (${daysUntil} days)`;
+  return `${formatDateWithOrdinal(nextDay) AD} (${daysUntil} days)`;
 }
 
 // Create a robust "years and days" countdown to CENTENNIAL_DATE:
@@ -170,7 +170,7 @@ function generatePDF() {
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(10);
   doc.text("Gregorian Calendar:", 15, yPos);
-  doc.text("14th August, 1947, Friday, Laylat-ul-Qadr", 15, yPos + 8);
+  doc.text("14th August, 1947 AD, Friday, Laylat-ul-Qadr", 15, yPos + 8);
   yPos += 15;
   doc.text("Islamic (Hijri) Calendar:", 15, yPos);
   doc.text("27th Ramadan, 1366 AH, Friday, Laylat-ul-Qadr", 15, yPos + 8);
@@ -203,7 +203,7 @@ function generatePDF() {
   yPos += 20;
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(10);
-  doc.text("Gregorian Calendar: 14th August, 2047", 15, yPos);
+  doc.text("Gregorian Calendar: 14th August, 2047 AD", 15, yPos);
   yPos += 8;
   doc.text("Islamic (Hijri) Calendar: 27th Ramadan, 1466 AH", 15, yPos);
   yPos += 15;
@@ -214,7 +214,7 @@ function generatePDF() {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(12);
   doc.text(
-    `${yearsUntilCentennial} years and ${daysUntilCentennial} days until Pakistan's Centennial!`,
+    `${yearsUntilCentennial} years and ${daysUntilCentennial} days until Pakistan's Centennial (2047 AD)!`,
     105,
     yPos + 8,
     { align: "center" }
